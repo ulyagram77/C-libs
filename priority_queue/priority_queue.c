@@ -47,7 +47,7 @@ void push_priority_queue(PriorityQueue *pq, int data, int priority) {
   pq->size++;
 }
 
-void pop_priority_queue(PriorityQueue *pq) {
+PriorityQueueElement pop_priority_queue(PriorityQueue *pq) {
   if (pq->size == 0) {
     printf("Priority queue is empty.\n");
     return;
