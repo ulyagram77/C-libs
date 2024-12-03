@@ -39,7 +39,7 @@ void delete_node_linked_list(Node **head, void *target, CompareFunc comparer, vo
   Node *temp = *head;
   Node *prev = NULL;
 
-  while (temp && cmp(temp->data, target) != 0)
+  while (temp && comparer(temp->data, target) != 0)
   {
     prev = temp;
     temp = temp->next;
