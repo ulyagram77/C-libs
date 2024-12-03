@@ -29,7 +29,11 @@ void destroy_building_firm(void *data)
   free(firm);
 }
 
-// print building list
+void print_sublist_item(const void *data)
+{
+  printf("  - %s\n", (const char *)data);
+}
+
 void print_building_firm(const void *data)
 {
   const BuildingFirm *firm = (const BuildingFirm *)data;
@@ -38,7 +42,7 @@ void print_building_firm(const void *data)
   if (firm->sublist)
   {
     printf("  Objects:\n");
-    print_linked_list(firm->sublist, (void (*)(const void *))puts);
+    print_linked_list(firm->sublist, print_sublist_item);
     puts("");
   }
   else
