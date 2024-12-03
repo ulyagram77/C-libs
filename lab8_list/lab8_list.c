@@ -37,7 +37,7 @@ void print_building_firm(const void *data)
 
   if (firm->sublist)
   {
-    printf("  Objects:\n");
+    printf("  Objects:\n");
     print_linked_list(firm->sublist, (void (*)(const void *))puts);
     puts("");
   }
