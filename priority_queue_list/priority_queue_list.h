@@ -12,6 +12,7 @@ typedef struct LPQElement
 typedef struct LPQ
 {
   Node *head;
+  size_t allocated_memory;
 } LPQ;
 
 static int compare_priority(const void *a, const void *b);

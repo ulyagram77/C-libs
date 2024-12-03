@@ -1,6 +1,9 @@
 #ifndef PRIORITY_QUEUE_H
 #define PRIORITY_QUEUE_H
 
+#include <stdio.h>
+#include <stdlib.h>
+
 typedef struct {
   int data;
   int priority;
@@ -12,6 +15,7 @@ typedef struct {
   int capacity;
   int front;
   int rear;
+  size_t allocated_memory;
 } PriorityQueue;
 
 PriorityQueue init_priority_queue(int capacity);

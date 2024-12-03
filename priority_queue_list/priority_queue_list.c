@@ -34,6 +34,7 @@ LPQ *init_lpq()
     exit(EXIT_FAILURE);
   }
   queue->head = NULL;
+  queue->allocated_memory = sizeof(LPQ);
   return queue;
 }
 
@@ -47,6 +48,8 @@ void enqueue_lpq(LPQ *queue, int value, int priority)
   }
   newElement->value = value;
   newElement->priority = priority;
+
+  queue->allocated_memory += sizeof(LPQElement);
 
   Node **head = &(queue->head);
 
@@ -74,6 +77,8 @@ int dequeue_lpq(LPQ *queue)
   }
   LPQElement *top = (LPQElement *)queue->head->data;
   int value = top->value;
+  queue->allocated_memory -= sizeof(LPQElement);
+
   delete_node_linked_list(&(queue->head), top, compare_priority, free_lpq_element);
   return value;
 }
@@ -82,6 +87,7 @@ void destroy_lpq(LPQ *queue)
 {
   destroy_linked_list(&(queue->head), free_lpq_element);
   free(queue);
+  queue->allocated_memory = 0;
 }
 
 void print_lpq(LPQ *queue)

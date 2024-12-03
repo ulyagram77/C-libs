@@ -15,6 +15,7 @@ typedef struct
   int capacity;
   int front;
   int rear;
+  size_t allocated_memory;
 } PriorityQueue;
 
 PriorityQueue init_priority_queue(int capacity)
@@ -24,6 +25,7 @@ PriorityQueue init_priority_queue(int capacity)
       (PriorityQueueElement *)malloc(sizeof(PriorityQueueElement) * capacity);
   pq.size = 0;
   pq.capacity = capacity;
+  pq.allocated_memory = sizeof(PriorityQueueElement) * capacity;
   return pq;
 }
 
@@ -32,6 +34,7 @@ void resize(PriorityQueue *pq)
   pq->capacity *= 2;
   pq->elements = (PriorityQueueElement *)realloc(
       pq->elements, sizeof(PriorityQueueElement) * pq->capacity);
+  pq->allocated_memory = sizeof(PriorityQueueElement) * pq->capacity;
 }
 
 void push_priority_queue(PriorityQueue *pq, int data, int priority)
@@ -66,7 +69,11 @@ PriorityQueueElement pop_priority_queue(PriorityQueue *pq)
   return pq->elements[--pq->size];
 }
 
-void destroy_priority_queue(PriorityQueue *pq) { free(pq->elements); }
+void destroy_priority_queue(PriorityQueue *pq)
+{
+  free(pq->elements);
+  pq->allocated_memory = 0;
+}
 
 void print_priority_queue(PriorityQueue *pq)
 {
