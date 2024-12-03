@@ -25,6 +25,8 @@ PriorityQueue init_priority_queue(int capacity)
       (PriorityQueueElement *)malloc(sizeof(PriorityQueueElement) * capacity);
   pq.size = 0;
   pq.capacity = capacity;
+  pq.front = 0;
+  pq.rear = 0;
   pq.allocated_memory = sizeof(PriorityQueueElement) * capacity;
   return pq;
 }
@@ -63,10 +65,19 @@ PriorityQueueElement pop_priority_queue(PriorityQueue *pq)
   if (pq->size == 0)
   {
     printf("Priority queue is empty.\n");
-    return;
+    PriorityQueueElement emptyElement = {0, 0};
+    return emptyElement;
   }
 
-  return pq->elements[--pq->size];
+  PriorityQueueElement topElement = pq->elements[pq->front];
+
+  for (int i = 0; i < pq->size - 1; i++)
+  {
+    pq->elements[i] = pq->elements[i + 1];
+  }
+
+  pq->size--;
+  return topElement;
 }
 
 void destroy_priority_queue(PriorityQueue *pq)
