@@ -67,3 +67,23 @@ PriorityQueueElement pop_priority_queue(PriorityQueue *pq)
 }
 
 void destroy_priority_queue(PriorityQueue *pq) { free(pq->elements); }
+
+void print_priority_queue(PriorityQueue *pq)
+{
+  if (pq->size == 0)
+  {
+    printf("Priority queue is empty.\n");
+    return;
+  }
+
+  printf("Priority Queue (data, priority):\n");
+  for (int i = 0; i < pq->size; i++)
+  {
+    printf("Value: %d, Priority: %d", pq->elements[i].data, pq->elements[i].priority);
+    if (i < pq->size - 1)
+    {
+      printf("\n");
+    }
+  }
+  printf("\n");
+}
