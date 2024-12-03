@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8) 
 
-project(priority_queue LANGUAGES C)
+project(priority_queue_list LANGUAGES C)
 
 set(SOURCE_LIB ${PROJECT_NAME}.c)
 

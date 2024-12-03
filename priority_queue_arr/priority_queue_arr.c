@@ -1,12 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct {
+typedef struct
+{
   int data;
   int priority;
 } PriorityQueueElement;
 
-typedef struct {
+// Array based priority queue
+typedef struct
+{
   PriorityQueueElement *elements;
   int size;
   int capacity;
@@ -14,7 +17,8 @@ typedef struct {
   int rear;
 } PriorityQueue;
 
-PriorityQueue init_priority_queue(int capacity) {
+PriorityQueue init_priority_queue(int capacity)
+{
   PriorityQueue pq;
   pq.elements =
       (PriorityQueueElement *)malloc(sizeof(PriorityQueueElement) * capacity);
@@ -23,14 +27,17 @@ PriorityQueue init_priority_queue(int capacity) {
   return pq;
 }
 
-void resize(PriorityQueue *pq) {
+void resize(PriorityQueue *pq)
+{
   pq->capacity *= 2;
   pq->elements = (PriorityQueueElement *)realloc(
       pq->elements, sizeof(PriorityQueueElement) * pq->capacity);
 }
 
-void push_priority_queue(PriorityQueue *pq, int data, int priority) {
-  if (pq->size == pq->capacity) {
+void push_priority_queue(PriorityQueue *pq, int data, int priority)
+{
+  if (pq->size == pq->capacity)
+  {
     resize(pq);
   }
 
@@ -38,7 +45,8 @@ void push_priority_queue(PriorityQueue *pq, int data, int priority) {
 
   int i = pq->size - 1;
 
-  while (i >= 0 && pq->elements[i].priority < priority) {
+  while (i >= 0 && pq->elements[i].priority < priority)
+  {
     pq->elements[i + 1] = pq->elements[i];
     i--;
   }
@@ -47,8 +55,10 @@ void push_priority_queue(PriorityQueue *pq, int data, int priority) {
   pq->size++;
 }
 
-PriorityQueueElement pop_priority_queue(PriorityQueue *pq) {
-  if (pq->size == 0) {
+PriorityQueueElement pop_priority_queue(PriorityQueue *pq)
+{
+  if (pq->size == 0)
+  {
     printf("Priority queue is empty.\n");
     return;
   }
