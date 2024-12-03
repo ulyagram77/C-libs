@@ -33,7 +33,7 @@ void destroy_building_firm(void *data)
 void print_building_firm(const void *data)
 {
   const BuildingFirm *firm = (const BuildingFirm *)data;
-  printf("Building Firm: %s\n", firm->name);
+  printf("\033[32m Building Firm:\033[0m %s\n", firm->name);
 
   if (firm->sublist)
   {
