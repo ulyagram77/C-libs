@@ -31,7 +31,7 @@ void destroy_building_firm(void *data)
 
 void print_sublist_item(const void *data)
 {
-  printf(" %s\n", (const char *)data);
+  printf("  %s\n", (const char *)data);
 }
 
 void print_building_firm(const void *data)
