@@ -76,7 +76,6 @@ void print_priority_queue(PriorityQueue *pq)
     return;
   }
 
-  printf("Priority Queue (data, priority):\n");
   for (int i = 0; i < pq->size; i++)
   {
     printf("Value: %d, Priority: %d", pq->elements[i].data, pq->elements[i].priority);
