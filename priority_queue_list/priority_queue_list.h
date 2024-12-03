@@ -1,6 +1,8 @@
 #ifndef PRIORITY_QUEUE_LIST_H
 #define PRIORITY_QUEUE_LIST_H
 
+#include <stdlib.h>
+#include <stdio.h>
 #include "linked_list.h"
 
 typedef struct LPQElement
