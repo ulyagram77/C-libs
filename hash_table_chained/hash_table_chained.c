@@ -60,7 +60,8 @@ void ht_print()
       printf("[ID: %d, Name: %s, Email: %s] \033[33m->\033[0m \n \033[33m->\033[0m", current->id, current->name, current->email);
       current = current->next;
     }
-    printf("NULL\n\n");
+    printf("NULL\n");
+    puts("------------------------");
   }
 }
 
