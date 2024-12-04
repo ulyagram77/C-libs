@@ -1,7 +1,7 @@
 #ifndef HASH_TABLE_H
 #define HASH_TABLE_H
 
-#define TABLE_SIZE 1000
+#define TABLE_SIZE 300
 #define MAX_NAME_LENGTH 50
 #define MAX_EMAIL_LENGTH 50
 
