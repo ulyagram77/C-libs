@@ -4,17 +4,24 @@
 
 #include "hash_table_chained.h"
 
+// hash table
 Node *hashTable[TABLE_SIZE];
 
-// Функція хешування (середина квадрата + ділення за модулем)
-int ht_function(int key)
+void ht_init()
+{
+  for (int i = 0; i < TABLE_SIZE; i++)
+  {
+    hashTable[i] = NULL;
+  }
+}
+
+int ht_func(int key)
 {
   int square = key * key;
-  int mid = (square / 10) % 100; // Витягуємо середні цифри
+  int mid = (square / 10) % 100;
   return mid % TABLE_SIZE;
 }
 
-// Додавання елемента в хеш-таблицю
 void ht_insert(int id, const char *name, const char *email)
 {
   int index = hashFunction(id);
@@ -26,7 +33,6 @@ void ht_insert(int id, const char *name, const char *email)
   hashTable[index] = newNode;
 }
 
-// Пошук елемента за ID
 Node *ht_search(int id)
 {
   int index = hashFunction(id);
@@ -42,7 +48,6 @@ Node *ht_search(int id)
   return NULL;
 }
 
-// Вивід хеш-таблиці
 void ht_print()
 {
   for (int i = 0; i < TABLE_SIZE; i++)
