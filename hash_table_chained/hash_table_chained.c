@@ -26,6 +26,11 @@ void ht_insert(int id, const char *name, const char *email)
 {
   int index = ht_func(id);
   Node *newNode = (Node *)malloc(sizeof(Node));
+  if (newNode == NULL)
+  {
+    fprintf(stderr, "Memory allocation failed\n");
+    exit(1);
+  }
   newNode->id = id;
   strcpy(newNode->name, name);
   strcpy(newNode->email, email);
