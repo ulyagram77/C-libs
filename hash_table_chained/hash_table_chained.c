@@ -86,7 +86,7 @@ void ht_linear_search(int id)
         double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
         printf("\n\033[32m\033[0m [LINEAR SEARCH] Found: ID: %d, Name: %s, Email: %s\n", current->id, current->name, current->email);
         printf("\033[32m\033[0m Comparisons amount: %d\n", comparisons);
-        printf("\033[32m\033[0m Estimated time: %.4f ms\n", elapsed_time);
+        printf("\033[32m\033[0m Estimated time: %.3f sec\n", elapsed_time);
         return;
       }
       current = current->next;
@@ -94,10 +94,10 @@ void ht_linear_search(int id)
   }
 
   clock_t end_time = clock();
-  double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC * 1000;
+  double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
   printf("\n\033[31m\033[0m [LINEAR SEARCH] Element with ID %d was not found.\n", id);
   printf("\033[31m\033[0m Comparisons amount: %d\n", comparisons);
-  printf("\033[31m\033[0m Estimated time: %.4f ms\n", elapsed_time);
+  printf("\033[31m\033[0m Estimated time: %.3f sec\n", elapsed_time);
 }
 
 void ht_linear_search_with_barrier(int id)
@@ -135,7 +135,7 @@ void ht_linear_search_with_barrier(int id)
       if (current->id == id && current->next != NULL)
       {
         clock_t end_time = clock();
-        double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC * 1000;
+        double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
 
         Node *prev = NULL;
         Node *cur = hashTable[i];
@@ -160,7 +160,7 @@ void ht_linear_search_with_barrier(int id)
 
         printf("\n\033[32m\033[0m [BARRIER LINEAR SEARCH] Found: ID: %d, Name: %s, Email: %s\n", current->id, current->name, current->email);
         printf("\033[32m\033[0m Comparisons amount: %d\n", comparisons);
-        printf("\033[32m\033[0m Estimated time: %.4f ms\n", elapsed_time);
+        printf("\033[32m\033[0m Estimated time: %.3f sec\n", elapsed_time);
         return;
       }
       current = current->next;
@@ -168,8 +168,8 @@ void ht_linear_search_with_barrier(int id)
   }
 
   clock_t end_time = clock();
-  double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC * 1000;
+  double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
   printf("\n\033[31m\033[0m [BARRIER LINEAR SEARCH] Element with ID %d was not found.\n", id);
   printf("\033[31m\033[0m Comparisons amount: %d\n", comparisons);
-  printf("\033[31m\033[0m Estimated time: %.4f ms\n", elapsed_time);
+  printf("\033[31m\033[0m Estimated time: %.3f sec\n", elapsed_time);
 }
