@@ -100,16 +100,17 @@ void ht_linear_search_with_barrier(int id)
   clock_t start_time = clock();
   int comparisons = 0;
 
+  // Добавляем барьер в конце каждого списка
   for (int i = 0; i < TABLE_SIZE; i++)
   {
     Node *barrier = (Node *)malloc(sizeof(Node));
-    barrier->id = id;
+    barrier->id = id; // ID барьера совпадает с искомым
     barrier->next = NULL;
 
     Node *current = hashTable[i];
     if (current == NULL)
     {
-      hashTable[i] = barrier;
+      hashTable[i] = barrier; // Если список пуст, просто добавляем барьер
     }
     else
     {
@@ -117,10 +118,11 @@ void ht_linear_search_with_barrier(int id)
       {
         current = current->next;
       }
-      current->next = barrier;
+      current->next = barrier; // Добавляем барьер в конец списка
     }
   }
 
+  // Поиск с барьером
   for (int i = 0; i < TABLE_SIZE; i++)
   {
     Node *current = hashTable[i];
@@ -130,30 +132,28 @@ void ht_linear_search_with_barrier(int id)
       if (current->id == id)
       {
         clock_t end_time = clock();
-        double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
+        double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC * 1000; // Время в миллисекундах
 
-        for (int j = 0; j < TABLE_SIZE; j++)
+        // Удаляем барьер
+        Node *prev = NULL;
+        Node *cur = hashTable[i];
+        while (cur != NULL)
         {
-          Node *prev = NULL;
-          Node *cur = hashTable[j];
-          while (cur != NULL)
+          if (cur->id == id && cur->next == NULL) // Если нашли барьер
           {
-            if (cur->id == id && cur->next == NULL)
+            if (prev == NULL)
             {
-              if (prev == NULL)
-              {
-                hashTable[j] = NULL;
-              }
-              else
-              {
-                prev->next = NULL;
-              }
-              free(cur);
-              break;
+              hashTable[i] = NULL;
             }
-            prev = cur;
-            cur = cur->next;
+            else
+            {
+              prev->next = NULL;
+            }
+            free(cur);
+            break;
           }
+          prev = cur;
+          cur = cur->next;
         }
 
         printf("\n\033[32m\033[0m [BARRIER LINEAR SEARCH] Found: ID: %d, Name: %s, Email: %s\n", current->id, current->name, current->email);
@@ -166,7 +166,7 @@ void ht_linear_search_with_barrier(int id)
   }
 
   clock_t end_time = clock();
-  double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
+  double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC * 1000;
   printf("\n\033[21m\033[0m [BARRIER LINEAR SEARCH] Element with ID %d was not found.\n", id);
   printf("\033[21m\033[0m Comparisons amount: %d\n", comparisons);
   printf("\033[21m\033[0m Estimated time: %.3f ms\n", elapsed_time);
