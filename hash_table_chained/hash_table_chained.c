@@ -129,7 +129,7 @@ void ht_linear_search_with_barrier(int id)
     while (current != NULL)
     {
       comparisons++;
-      if (current->id == id)
+      if (current->id == id && current->next != NULL) // Ищем только настоящий элемент
       {
         clock_t end_time = clock();
         double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC * 1000; // Время в миллисекундах
@@ -166,7 +166,7 @@ void ht_linear_search_with_barrier(int id)
   }
 
   clock_t end_time = clock();
-  double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC * 1000;
+  double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC * 1000; // Время в миллисекундах
   printf("\n\033[21m\033[0m [BARRIER LINEAR SEARCH] Element with ID %d was not found.\n", id);
   printf("\033[21m\033[0m Comparisons amount: %d\n", comparisons);
   printf("\033[21m\033[0m Estimated time: %.3f ms\n", elapsed_time);
