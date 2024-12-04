@@ -24,7 +24,7 @@ int ht_func(int key)
 
 void ht_insert(int id, const char *name, const char *email)
 {
-  int index = hashFunction(id);
+  int index = ht_func(id);
   Node *newNode = (Node *)malloc(sizeof(Node));
   newNode->id = id;
   strcpy(newNode->name, name);
@@ -35,7 +35,7 @@ void ht_insert(int id, const char *name, const char *email)
 
 Node *ht_search(int id)
 {
-  int index = hashFunction(id);
+  int index = ht_func(id);
   Node *current = hashTable[index];
   while (current != NULL)
   {
