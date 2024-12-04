@@ -156,7 +156,7 @@ void ht_linear_search_with_barrier(int id)
           }
         }
 
-        printf("\n\033[32m\033[0m [BARRIER LINEAR SEARCH] Найдено: ID: %d, Name: %s, Email: %s\n", current->id, current->name, current->email);
+        printf("\n\033[32m\033[0m [BARRIER LINEAR SEARCH] Found: ID: %d, Name: %s, Email: %s\n", current->id, current->name, current->email);
         printf("\033[21m\033[0m Comparisons amount: %d\n", comparisons);
         printf("\033[21m\033[0m Estimated time: %.3f ms\n", elapsed_time);
         return;
