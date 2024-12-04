@@ -17,5 +17,7 @@ int ht_func(int key);
 void ht_insert(int id, const char* name, const char* email);
 Node* ht_search(int id);
 void ht_print();
+void ht_linear_search(int id);
+void ht_linear_search_with_barrier(int id);
 
 #endif 
