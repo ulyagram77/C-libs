@@ -53,15 +53,14 @@ void ht_print()
 {
   for (int i = 0; i < TABLE_SIZE; i++)
   {
-    printf("\033[33mIndex\033[0m %d: ", i);
+    printf("\033[33mIndex %d: \033[0m", i);
     Node *current = hashTable[i];
     while (current != NULL)
     {
       printf("[ID: %d, Name: %s, Email: %s] \033[33m->\033[0m \n \033[33m->\033[0m", current->id, current->name, current->email);
-      puts("");
       current = current->next;
     }
-    printf("NULL\n");
+    printf("NULL\n\n");
   }
 }
 
