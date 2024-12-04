@@ -5,7 +5,6 @@
 
 #include "hash_table_chained.h"
 
-// hash table
 Node *hashTable[TABLE_SIZE];
 
 void ht_init()
@@ -101,17 +100,16 @@ void ht_linear_search_with_barrier(int id)
   clock_t start_time = clock();
   int comparisons = 0;
 
-  // Добавляем барьер в конце каждого списка
   for (int i = 0; i < TABLE_SIZE; i++)
   {
     Node *barrier = (Node *)malloc(sizeof(Node));
-    barrier->id = id; // ID барьера совпадает с искомым
+    barrier->id = id;
     barrier->next = NULL;
 
     Node *current = hashTable[i];
     if (current == NULL)
     {
-      hashTable[i] = barrier; // Если список пуст, просто добавляем барьер
+      hashTable[i] = barrier;
     }
     else
     {
@@ -119,28 +117,26 @@ void ht_linear_search_with_barrier(int id)
       {
         current = current->next;
       }
-      current->next = barrier; // Добавляем барьер в конец списка
+      current->next = barrier;
     }
   }
 
-  // Поиск с барьером
   for (int i = 0; i < TABLE_SIZE; i++)
   {
     Node *current = hashTable[i];
     while (current != NULL)
     {
       comparisons++;
-      if (current->id == id && current->next != NULL) // Ищем только настоящий элемент
+      if (current->id == id && current->next != NULL)
       {
         clock_t end_time = clock();
-        double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC * 1000; // Время в миллисекундах
+        double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC * 1000;
 
-        // Удаляем барьер
         Node *prev = NULL;
         Node *cur = hashTable[i];
         while (cur != NULL)
         {
-          if (cur->id == id && cur->next == NULL) // Если нашли барьер
+          if (cur->id == id && cur->next == NULL)
           {
             if (prev == NULL)
             {
@@ -167,7 +163,7 @@ void ht_linear_search_with_barrier(int id)
   }
 
   clock_t end_time = clock();
-  double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC * 1000; // Время в миллисекундах
+  double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC * 1000;
   printf("\n\033[31m\033[0m [BARRIER LINEAR SEARCH] Element with ID %d was not found.\n", id);
   printf("\033[31m\033[0m Comparisons amount: %d\n", comparisons);
   printf("\033[31m\033[0m Estimated time: %f ms\n", elapsed_time);
