@@ -63,6 +63,11 @@ void *get_elem_dyn_arr(DynArr *arr, size_t index)
 // destroy arr
 void destroy_dyn_arr(DynArr *arr)
 {
+  for (size_t i = 0; i < arr->size; i++)
+  {
+    void *elem = get_elem_dyn_arr(arr, i);
+    free(elem);
+  }
   free(arr->data);
   free(arr);
 }
