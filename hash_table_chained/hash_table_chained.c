@@ -57,7 +57,7 @@ void ht_print()
     Node *current = hashTable[i];
     while (current != NULL)
     {
-      printf("[ID: %d, Name: %s, Email: %s] -> \n", current->id, current->name, current->email);
+      printf("[ID: %d, Name: %s, Email: %s] -> \n ->", current->id, current->name, current->email);
       current = current->next;
     }
     printf("NULL\n");
