@@ -64,11 +64,10 @@ void ht_print()
   }
 }
 
-// Линейный поиск
 void ht_linear_search(int id)
 {
-  clock_t start_time = clock(); // Начало времени
-  int comparisons = 0;          // Счетчик сравнений
+  clock_t start_time = clock();
+  int comparisons = 0;
 
   for (int i = 0; i < TABLE_SIZE; i++)
   {
@@ -78,42 +77,39 @@ void ht_linear_search(int id)
       comparisons++;
       if (current->id == id)
       {
-        clock_t end_time = clock(); // Конец времени
+        clock_t end_time = clock();
         double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
-        printf("\n[ЛИНЕЙНЫЙ ПОИСК] Найдено: ID: %d, Name: %s, Email: %s\n", current->id, current->name, current->email);
-        printf("Количество сравнений: %d\n", comparisons);
-        printf("Время выполнения: %.6f секунд\n", elapsed_time);
+        printf("\n\033[34m\033[0m [LINEAR SEARCH] Found: ID: %d, Name: %s, Email: %s \033[34m\033[0m\n", current->id, current->name, current->email);
+        printf("\033[34m\033Comparisons amount: %d\n", comparisons);
+        printf("\033[34m\033Estimated time: %.3f ms\n", elapsed_time);
         return;
       }
       current = current->next;
     }
   }
 
-  // Если не найдено
   clock_t end_time = clock();
-  double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
-  printf("\n[ЛИНЕЙНЫЙ ПОИСК] Элемент с ID %d не найден.\n", id);
-  printf("Количество сравнений: %d\n", comparisons);
-  printf("Время выполнения: %.6f секунд\n", elapsed_time);
+  double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC * 1000;
+  printf("\n\033[34m\033[0m[LINEAR SEARCH] Element with ID %d was not found. \033[34m\033[0m\n", id);
+  printf("\033[34m\033Comparisons amount: %d\n", comparisons);
+  printf("\033[34m\033Estimated time: %.3f ms\n", elapsed_time);
 }
 
-// Линейный поиск с барьером
 void ht_linear_search_with_barrier(int id)
 {
-  clock_t start_time = clock(); // Начало времени
-  int comparisons = 0;          // Счетчик сравнений
+  clock_t start_time = clock();
+  int comparisons = 0;
 
-  // Устанавливаем барьер: добавляем временный элемент в конец каждого списка
   for (int i = 0; i < TABLE_SIZE; i++)
   {
     Node *barrier = (Node *)malloc(sizeof(Node));
-    barrier->id = id; // ID барьера совпадает с искомым
+    barrier->id = id;
     barrier->next = NULL;
 
     Node *current = hashTable[i];
     if (current == NULL)
     {
-      hashTable[i] = barrier; // Если список пуст, просто добавляем барьер
+      hashTable[i] = barrier;
     }
     else
     {
@@ -121,11 +117,10 @@ void ht_linear_search_with_barrier(int id)
       {
         current = current->next;
       }
-      current->next = barrier; // Добавляем барьер в конец списка
+      current->next = barrier;
     }
   }
 
-  // Поиск с барьером
   for (int i = 0; i < TABLE_SIZE; i++)
   {
     Node *current = hashTable[i];
@@ -134,10 +129,9 @@ void ht_linear_search_with_barrier(int id)
       comparisons++;
       if (current->id == id)
       {
-        clock_t end_time = clock(); // Конец времени
+        clock_t end_time = clock();
         double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
 
-        // Удаляем барьеры
         for (int j = 0; j < TABLE_SIZE; j++)
         {
           Node *prev = NULL;
@@ -162,19 +156,18 @@ void ht_linear_search_with_barrier(int id)
           }
         }
 
-        printf("\n[ПОИСК С БАРЬЕРОМ] Найдено: ID: %d, Name: %s, Email: %s\n", current->id, current->name, current->email);
-        printf("Количество сравнений: %d\n", comparisons);
-        printf("Время выполнения: %.6f секунд\n", elapsed_time);
+        printf("\n\033[34m\033[0m [BARRIER LINEAR SEARCH] Found: ID: %d, Name: %s, Email: %s \033[34m\033[0m\n", current->id, current->name, current->email);
+        printf("\033[34m\033Comparisons amount: %d\n", comparisons);
+        printf("\033[34m\033Estimated time: %.3f ms\n", elapsed_time);
         return;
       }
       current = current->next;
     }
   }
 
-  // Если не найдено
   clock_t end_time = clock();
-  double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
-  printf("\n[ПОИСК С БАРЬЕРОМ] Элемент с ID %d не найден.\n", id);
-  printf("Количество сравнений: %d\n", comparisons);
-  printf("Время выполнения: %.6f секунд\n", elapsed_time);
+  double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC * 1000;
+  printf("\n\033[34m\033[0m[BARRIER LINEAR SEARCH] Element with ID %d was not found. \033[34m\033[0m\n", id);
+  printf("\033[34m\033Comparisons amount: %d\n", comparisons);
+  printf("\033[34m\033Estimated time: %.3f ms\n", elapsed_time);
 }
