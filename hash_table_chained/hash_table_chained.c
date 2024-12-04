@@ -57,7 +57,7 @@ void ht_print()
     Node *current = hashTable[i];
     while (current != NULL)
     {
-      printf("[ID: %d, Name: %s, Email: %s] -> ", current->id, current->name, current->email);
+      printf("[ID: %d, Name: %s, Email: %s] -> \n", current->id, current->name, current->email);
       current = current->next;
     }
     printf("NULL\n");
@@ -158,7 +158,7 @@ void ht_linear_search_with_barrier(int id)
 
         printf("\n\033[32m\033[0m [BARRIER LINEAR SEARCH] Found: ID: %d, Name: %s, Email: %s\n", current->id, current->name, current->email);
         printf("\033[32m\033[0m Comparisons amount: %d\n", comparisons);
-        printf("\033[32m\033[0m Estimated time: %.f ms\n", elapsed_time);
+        printf("\033[32m\033[0m Estimated time: %f ms\n", elapsed_time);
         return;
       }
       current = current->next;
@@ -169,5 +169,5 @@ void ht_linear_search_with_barrier(int id)
   double elapsed_time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC * 1000; // Время в миллисекундах
   printf("\n\033[31m\033[0m [BARRIER LINEAR SEARCH] Element with ID %d was not found.\n", id);
   printf("\033[31m\033[0m Comparisons amount: %d\n", comparisons);
-  printf("\033[31m\033[0m Estimated time: %.f ms\n", elapsed_time);
+  printf("\033[31m\033[0m Estimated time: %f ms\n", elapsed_time);
 }
