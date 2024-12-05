@@ -12,7 +12,14 @@ static gint compare_elements(const void *a, const void *b, gpointer user_data)
 static void add_to_array(gpointer key, gpointer value, gpointer user_data)
 {
   DynArr *arr = (DynArr *)user_data;
-  push_dyn_arr(arr, key); // Добавляем элемент в динамический массив
+  void *new_element = malloc(arr->elem_size);
+  if (new_element == NULL)
+  {
+    perror("Failed to allocate memory for new element");
+    return;
+  }
+  memcpy(new_element, key, arr->elem_size);
+  push_dyn_arr(arr, new_element); // Копируем данные в новый элемент и добавляем в массив
 }
 
 void sort_with_gtree(DynArr *arr)
@@ -47,7 +54,7 @@ void sort_with_gtree(DynArr *arr)
   // Очищаем массив перед заполнением его отсортированными элементами
   arr->size = 0;
 
-  // Проходим по дереву и заполняем массив
+  // Проходим по дереву и заполняем массив отсортированными элементами
   g_tree_foreach(tree, add_to_array, arr);
 
   // Освобождаем дерево
