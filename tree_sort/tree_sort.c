@@ -20,8 +20,10 @@ void sort_with_gtree(DynArr *arr)
   if (arr->size == 0)
     return;
 
+  // Создаем дерево с пользовательской функцией сравнения
   GTree *tree = g_tree_new(compare_elements);
 
+  // Вставляем элементы массива в дерево
   for (size_t i = 0; i < arr->size; i++)
   {
     void *element = malloc(arr->elem_size);
@@ -36,7 +38,12 @@ void sort_with_gtree(DynArr *arr)
     g_tree_insert(tree, element, NULL);
   }
 
+  // Очищаем массив перед заполнением его отсортированными элементами
   arr->size = 0;
+
+  // Проходим по дереву и заполняем массив
   g_tree_foreach(tree, add_to_array, arr);
+
+  // Освобождаем дерево и временные элементы
   g_tree_destroy(tree);
 }
