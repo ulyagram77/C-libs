@@ -20,18 +20,23 @@ void sort_with_gtree(DynArr *arr)
   if (arr->size == 0)
     return;
 
-  GTree *tree = g_tree_new_full(compare_elements, &arr->elem_size, free, NULL);
+  GTree *tree = g_tree_new(compare_elements);
 
   for (size_t i = 0; i < arr->size; i++)
   {
     void *element = malloc(arr->elem_size);
+    if (!element)
+    {
+      perror("Failed to allocate memory for element");
+      g_tree_destroy(tree);
+      return;
+    }
+
     memcpy(element, (char *)arr->data + i * arr->elem_size, arr->elem_size);
     g_tree_insert(tree, element, NULL);
   }
 
   arr->size = 0;
-
   g_tree_foreach(tree, add_to_array, arr);
-
   g_tree_destroy(tree);
 }
