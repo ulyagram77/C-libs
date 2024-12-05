@@ -1,7 +1,3 @@
-cmake_minimum_required(VERSION 2.8) 
+add_library(sort_common INTERFACE)
 
-project(sort_common LANGUAGES C)
-
-set(SOURCE_LIB ${PROJECT_NAME}.c)
-
-add_library(${PROJECT_NAME} STATIC ${SOURCE_LIB})
+target_include_directories(sort_common INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
