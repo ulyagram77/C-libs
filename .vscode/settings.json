@@ -2,6 +2,7 @@
   "files.associations": {
     "stdio.h": "c",
     "priority_queue_list.h": "c",
-    "string.h": "c"
+    "string.h": "c",
+    "stdlib.h": "c"
   }
 }
