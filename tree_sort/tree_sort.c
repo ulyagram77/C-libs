@@ -12,7 +12,7 @@ static gint compare_elements(const void *a, const void *b, gpointer user_data)
 static void add_to_array(gpointer key, gpointer value, gpointer user_data)
 {
   DynArr *arr = (DynArr *)user_data;
-  push_dyn_arr(arr, key);
+  push_dyn_arr(arr, key); // Добавляем элемент в динамический массив
 }
 
 void sort_with_gtree(DynArr *arr)
@@ -23,27 +23,20 @@ void sort_with_gtree(DynArr *arr)
   // Создаем дерево с пользовательской функцией сравнения
   GTree *tree = g_tree_new(compare_elements);
 
-  // Вставляем элементы массива в дерево
+  // Вставляем элементы массива в дерево, используя указатели без malloc
   for (size_t i = 0; i < arr->size; i++)
   {
-    void *element = malloc(arr->elem_size);
-    if (!element)
-    {
-      perror("Failed to allocate memory for element");
-      g_tree_destroy(tree);
-      return;
-    }
-
-    memcpy(element, (char *)arr->data + i * arr->elem_size, arr->elem_size);
-    g_tree_insert(tree, element, NULL);
+    // Получаем указатель на элемент массива
+    void *element = (char *)arr->data + i * arr->elem_size;
+    g_tree_insert(tree, element, NULL); // Вставляем указатель в дерево
   }
 
   // Очищаем массив перед заполнением его отсортированными элементами
   arr->size = 0;
 
-  // Проходим по дереву и заполняем массив
+  // Проходим по дереву и заполняем массив отсортированными элементами
   g_tree_foreach(tree, add_to_array, arr);
 
-  // Освобождаем дерево и временные элементы
+  // Освобождаем дерево (не освобождаем элементы массива, так как мы их не malloc-им)
   g_tree_destroy(tree);
 }
