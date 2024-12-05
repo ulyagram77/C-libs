@@ -36,15 +36,29 @@ TreeNode *insert_to_tree(TreeNode *root, void *data, size_t elem_size, int *comp
 
 void inorder_tree(TreeNode *root, void *arr, size_t elem_size, size_t *index, int *move_count)
 {
-  if (root == NULL)
-    return;
-  inorder_tree(root->left, arr, elem_size, index, move_count);
+  TreeNode **stack = malloc(1000 * sizeof(TreeNode *));
+  int top = -1;
 
-  memcpy((char *)arr + (*index) * elem_size, root->data, elem_size);
-  (*index)++;
-  (*move_count)++;
+  TreeNode *current = root;
 
-  inorder_tree(root->right, arr, elem_size, index, move_count);
+  while (current != NULL || top >= 0)
+  {
+    while (current != NULL)
+    {
+      stack[++top] = current;
+      current = current->left;
+    }
+
+    current = stack[top--];
+
+    memcpy((char *)arr + (*index) * elem_size, current->data, elem_size);
+    (*index)++;
+    (*move_count)++;
+
+    current = current->right;
+  }
+
+  free(stack);
 }
 
 void destroy_tree(TreeNode *root)
