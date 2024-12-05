@@ -91,7 +91,6 @@ void radix_sort_dyn_arr(DynArr *arr, SortOrder order)
     printf("\n\033[32m\033[0m Sorting order: \033[32mDescending\033[0m\n");
   }
 
-  printf("Sorting completed.\n");
-  printf("Comparisons: %zu\n", stats.comparisons);
-  printf("Swaps: %zu\n", stats.swaps);
+  printf("\033[32m󰓡\033[0m Number of swaps: \033[32m%d\033[0m\n", stats.swaps);
+  printf("\033[32m\033[0m Number of comparisons: \033[32m%d\033[0m\n", stats.comparisons);
 }
