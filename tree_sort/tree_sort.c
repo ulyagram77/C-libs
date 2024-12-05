@@ -18,25 +18,38 @@ static void add_to_array(gpointer key, gpointer value, gpointer user_data)
 void sort_with_gtree(DynArr *arr)
 {
   if (arr->size == 0)
+  {
+    printf("Array is empty, nothing to sort\n");
     return;
+  }
+
+  printf("Starting tree sort, array size: %zu\n", arr->size);
 
   // Создаем дерево с пользовательской функцией сравнения
-  GTree *tree = g_tree_new(compare_elements);
+  GTree *tree = g_tree_new_full(compare_elements, &arr->elem_size, NULL, NULL);
 
-  // Вставляем элементы массива в дерево, используя указатели без malloc
+  // Вставляем элементы массива в дерево
   for (size_t i = 0; i < arr->size; i++)
   {
-    // Получаем указатель на элемент массива
     void *element = (char *)arr->data + i * arr->elem_size;
-    g_tree_insert(tree, element, NULL); // Вставляем указатель в дерево
+    printf("Inserting element at index %zu: %p\n", i, element);
+
+    // Проверка на валидность указателя
+    if (element == NULL)
+    {
+      printf("Error: Invalid element pointer at index %zu\n", i);
+      continue;
+    }
+
+    g_tree_insert(tree, element, NULL);
   }
 
   // Очищаем массив перед заполнением его отсортированными элементами
   arr->size = 0;
 
-  // Проходим по дереву и заполняем массив отсортированными элементами
+  // Проходим по дереву и заполняем массив
   g_tree_foreach(tree, add_to_array, arr);
 
-  // Освобождаем дерево (не освобождаем элементы массива, так как мы их не malloc-им)
+  // Освобождаем дерево
   g_tree_destroy(tree);
 }
