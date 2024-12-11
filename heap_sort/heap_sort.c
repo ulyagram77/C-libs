@@ -92,12 +92,22 @@ void heap_sort(DynArr *arr, SortOrder order, int (*compare)(const void *, const 
   if (n < 2)
   {
     // Масив уже відсортований або недостатньо даних для сортування
-    printf("Comparisons: %zu\nSwaps: %zu\n", stats.comparisons, stats.swaps);
+    if (order == ASCENDING)
+    {
+      printf("\n\033[32m\033[0m Sorting order: \033[32masc\033[0m\n");
+    }
+    else
+    {
+      printf("\n\033[32m\033[0m Sorting order: \033[32mdesc\033[0m\n");
+    }
+
+    printf("\033[32m󰓡\033[0m Number of swaps: \033[32m%zu\033[0m\n", stats.swaps);
+    printf("\033[32m\033[0m Number of comparisons: \033[32m%zu\033[0m\n", stats.comparisons);
     return;
   }
 
   // Побудова купи
-  for (size_t i = (size_t)n / 2 - 1; i >= 0; i--)
+  for (int i = (int)(n / 2) - 1; i >= 0; i--)
   {
     heapify(arr, n, (size_t)i, order, compare, &stats);
   }
@@ -105,12 +115,19 @@ void heap_sort(DynArr *arr, SortOrder order, int (*compare)(const void *, const 
   // Послідовне "виймання" елементів з купи
   for (size_t i = n - 1; i > 0; i--)
   {
-    // Переміщуємо кореневий (найбільший або найменший) елемент в кінець
     swap_elements(arr, 0, i, &stats);
-    // Відновлюємо властивість купи до i-го елементу (вже останній відсортований)
     heapify(arr, i, 0, order, compare, &stats);
   }
 
-  // Виведення статистики
-  printf("Comparisons: %zu\nSwaps: %zu\n", stats.comparisons, stats.swaps);
+  if (order == ASCENDING)
+  {
+    printf("\n\033[32m\033[0m Sorting order: \033[32masc\033[0m\n");
+  }
+  else
+  {
+    printf("\n\033[32m\033[0m Sorting order: \033[32mdesc\033[0m\n");
+  }
+
+  printf("\033[32m󰓡\033[0m Number of swaps: \033[32m%zu\033[0m\n", stats.swaps);
+  printf("\033[32m\033[0m Number of comparisons: \033[32m%zu\033[0m\n", stats.comparisons);
 }
