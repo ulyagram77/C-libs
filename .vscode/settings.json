@@ -3,6 +3,9 @@
     "stdio.h": "c",
     "priority_queue_list.h": "c",
     "string.h": "c",
-    "stdlib.h": "c"
+    "stdlib.h": "c",
+    "radix_sort.h": "c",
+    "sort_common.h": "c",
+    "heap_sort.h": "c"
   }
 }
