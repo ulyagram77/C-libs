@@ -84,7 +84,7 @@ static void heapify(DynArr *arr, size_t n, size_t i, SortOrder order, int (*comp
   }
 }
 
-void heap_sort(DynArr *arr, SortOrder order, int (*compare)(const void *, const void *))
+void heap_sort_dyn_arr(DynArr *arr, SortOrder order, int (*compare)(const void *, const void *))
 {
   SortStats stats = {0, 0};
 
